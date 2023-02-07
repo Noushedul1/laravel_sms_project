@@ -22,7 +22,11 @@ class UserController extends Controller
     }
     public function create(Request $request,FlasherInterface $flasher)
     {
-        User::adduser($request);
+        $this->user = new User();
+        $this->user->name = $request->name;
+        $this->user->email = $request->email;
+        $this->user->password = bcrypt($request->password);
+        $this->user->save();
         $flasher->addSuccess('Add User Successfully');
         return redirect('/manage-user');
     }
@@ -51,7 +55,14 @@ class UserController extends Controller
     }
     public function update(Request $request, $id,FlasherInterface $flasher)
     {
-        User::updateUser($request,$id);
+        $this->user = User::find($id);
+        $this->user->name = $request->name;
+        $this->user->email = $request->email;
+        if(isset($request->password))
+        {
+            $this->user->password = bcrypt($request->password);
+        }
+        $this->user->save();
         $flasher->addSuccess('Update User Successfull');
         return redirect('/manage-user');
     }

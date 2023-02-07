@@ -16,27 +16,27 @@ class Teacher extends Model
     public static $imageName;
     public static $imageUrl;
     public static $directory;
-    public static function getImageUrl($request)
-    {
-        self::$image = $request->file('image');
-        self::$imageName = self::$image->getClientOriginalName();
-        self::$directory = 'teacher-images/';
-        self::$image->move(self::$directory, self::$imageName);
-        self::$imageUrl = self::$directory.self::$imageName;
-        return self::$imageUrl;
-    }
-    public static function addTeacher($request,$code)
-    {
-        self::$teacher = new Teacher();
-        self::$teacher->name = $request->name;
-        self::$teacher->code = $code;
-        self::$teacher->email = $request->email;
-        self::$teacher->password = bcrypt($request->number);
-        self::$teacher->number = $request->number;
-        self::$teacher->address = $request->address;
-        self::$teacher->image = self::getImageUrl($request);
-        self::$teacher->save();
-    }
+    // public static function getImageUrl($request)
+    // {
+    //     self::$image = $request->file('image');
+    //     self::$imageName = self::$image->getClientOriginalName();
+    //     self::$directory = 'teacher-images/';
+    //     self::$image->move(self::$directory, self::$imageName);
+    //     self::$imageUrl = self::$directory.self::$imageName;
+    //     return self::$imageUrl;
+    // }
+    // public static function addTeacher($request,$code)
+    // {
+    //     self::$teacher = new Teacher();
+    //     self::$teacher->name = $request->name;
+    //     self::$teacher->code = $code;
+    //     self::$teacher->email = $request->email;
+    //     self::$teacher->password = bcrypt($request->number);
+    //     self::$teacher->number = $request->number;
+    //     self::$teacher->address = $request->address;
+    //     self::$teacher->image = self::getImageUrl($request);
+    //     self::$teacher->save();
+    // }
     public static function updateTeacher($request,$id,$code)
     {
         self::$teacher = Teacher::find($id);

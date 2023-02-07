@@ -58,42 +58,4 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
-    public static $user;
-    public $users;
-    public $search;
-    public static function adduser($request)
-    {
-        self::$user = new User();
-        self::$user->name = $request->name;
-        self::$user->email = $request->email;
-        self::$user->password = bcrypt($request->password);
-        self::$user->save();
-    }
-    // public function manage($request)
-    // {
-    //     $this->search = $request['search'] ?? '';
-    //     if($this->search !='')
-    //     {
-    //         // $this->users = User::where('name','=',$this->search)->get();
-    //         // Must use "$this->search"
-    //         // $this->users = User::where('name','LIKE',"%$this->search")->get();
-    //         // $this->users = User::where('name','LIKE',"$this->search%")->get(); 
-    //         return self::$users = User::where('name','LIKE',"%$this->search%")->orWhere('email','LIKE',"%$this->search%")->get();
-    //     }
-    //     else
-    //     {
-    //         return $this->users = User::all();
-    //     }
-    // }
-    public static function updateUser($request,$id)
-    {
-        self::$user = User::find($id);
-        self::$user->name = $request->name;
-        self::$user->email = $request->email;
-        if(isset($request->password))
-        {
-            self::$user->password = bcrypt($request->password);
-        }
-        self::$user->save();
-    }
 }
